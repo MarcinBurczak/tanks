@@ -35,11 +35,13 @@ public class TanksGame extends ApplicationAdapter {
     private TiledMap tiledMap;
 
     private Texture missileTexture;
-	
+    private Texture bonusTexture;
+
     private OrthographicCamera camera;
     private OrthoCachedTiledMapRenderer tiledMapRenderer;
+    private Bonus bonus;
 
-	@Override
+    @Override
 	public void create () {
 		batch = new SpriteBatch();
         loadTextures();
@@ -59,6 +61,8 @@ public class TanksGame extends ApplicationAdapter {
 
         tiledMap = new TmxMapLoader().load("levels/level.tmx");
         tiledMapRenderer = new OrthoCachedTiledMapRenderer(tiledMap);
+
+        bonus = new Bonus(bonusTexture, batch);
     }
 
 	@Override
@@ -81,6 +85,7 @@ public class TanksGame extends ApplicationAdapter {
             tank.draw();
         }
 
+        bonus.draw();
 		batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
@@ -95,6 +100,7 @@ public class TanksGame extends ApplicationAdapter {
         tankTexture = new Texture("tank.png");
         missileTexture = new Texture("missile.png");
         explosionTexture = new Texture("explosion.png");
+        bonusTexture = new Texture("bonus.png");
     }
 
     private Touchpad createTouchpad() {
